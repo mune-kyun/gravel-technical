@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
 import { getPokemon } from "./api/pokemon";
-import Card from "@/components/card";
+import Card from "@/components/Card";
 
 export default function Home() {
   const [offset, setOffset] = useState(0);

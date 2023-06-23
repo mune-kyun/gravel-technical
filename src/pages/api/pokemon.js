@@ -1,3 +1,5 @@
+import { transformPokemonDetailData } from "@/utils";
+
 const pokeAPIURL = "https://pokeapi.co/api/v2/";
 export const itemPerPage = 16;
 
@@ -14,5 +16,5 @@ export const getPokemonDetail = async (name) => {
   const res = await fetch(`${pokeAPIURL}pokemon/${name}`);
   const json = await res.json();
 
-  return json;
+  return transformPokemonDetailData(json);
 };
