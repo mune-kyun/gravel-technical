@@ -1,0 +1,9 @@
+.carousel .slide img {
+  max-width: 150px; /* change this to whatever you want */
+  height: auto;
+}
+
+.carousel .thumb.selected,
+.carousel .thumb:hover {
+  border: 1px solid #333;
+}

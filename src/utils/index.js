@@ -4,6 +4,19 @@ export const getIdByUrl = (url) => {
 };
 
 export const formatName = (name) => {
+  if (!name) return "";
+
   const transformed = name.replaceAll("-", " ");
   return transformed;
+};
+
+export const getImagesFromSprites = (sprites) => {
+  let arr = [];
+  Object.keys(sprites)
+    .filter((key) => sprites[key] && typeof sprites[key] == "string")
+    .map((key) => arr.push(sprites[key]));
+  arr = arr.reverse();
+
+  if (arr.length > 4) return arr.slice(0, 4);
+  return arr;
 };

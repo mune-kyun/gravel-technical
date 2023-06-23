@@ -13,5 +13,6 @@ export const getPokemon = async (offset = 0) => {
 export const getPokemonDetail = async (name) => {
   const res = await fetch(`${pokeAPIURL}pokemon/${name}`);
   const json = await res.json();
-  console.log(json);
+
+  return json;
 };

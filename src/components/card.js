@@ -16,7 +16,7 @@ export default function Card({ name, url }) {
           src={`${imgBaseURL}${idPath}.png`}
           width={90}
           height={90}
-          alt="Picture of the author"
+          alt="Pokemon"
         />
         <p className="text-[#313131] text-lg text-center font-semibold capitalize">
           {formattedName}
