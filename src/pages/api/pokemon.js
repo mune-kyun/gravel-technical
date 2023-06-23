@@ -15,9 +15,3 @@ export const getPokemonDetail = async (name) => {
   const json = await res.json();
   console.log(json);
 };
-
-export default {
-  getPokemon,
-  getPokemonDetail,
-  itemPerPage,
-};

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import Link from "next/link";
 
-import { getPokemon, itemPerPage } from "./api/pokemon";
+import { getPokemon } from "./api/pokemon";
+import Card from "@/components/card";
 
 export default function Home() {
   const [offset, setOffset] = useState(0);
@@ -24,22 +24,18 @@ export default function Home() {
   };
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 `}
-    >
-      <p>pokemon</p>
-      {pokemon.map(({ name }) => {
-        return (
-          <Link href={`/pokemon/${name}`} key={name}>
-            <p>{name}</p>
-          </Link>
-        );
-      })}
+    <main className={`flex min-h-screen flex-col items-center py-10 px-6`}>
+      <h1>pokemon</h1>
+      <div className="grid grid-cols-2 gap-2 gap-x-10 sm:gap-x-20 md:grid-cols-4">
+        {pokemon.map(({ name, url }) => (
+          <Card key={name} name={name} url={url} />
+        ))}
+      </div>
       <ReactPaginate
         breakLabel="..."
         previousLabel={"prev"}
         nextLabel={"next"}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         pageCount={pageCount}
         onPageChange={handlePageClick}
         containerClassName={"pagination"}
