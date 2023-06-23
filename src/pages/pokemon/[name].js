@@ -6,6 +6,7 @@ import { getImagesFromSprites } from "@/utils";
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumb";
+import TypeLabel from "@/components/TypeLabel";
 
 export default function PokemonDetail() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function PokemonDetail() {
     const foundImages = getImagesFromSprites(data.sprites);
     setImages(foundImages);
   }, [data]);
-  //  type, weight, height, abilities, moves, and stats.
+  //  weight, height, abilities, moves, and stats.
 
   return (
     <main
@@ -46,6 +47,11 @@ export default function PokemonDetail() {
         })}
       </Carousel>
       <h1>{name}</h1>
+      <div className="flex flex-wrap gap-3">
+        {data?.types?.map(({ slot, type }) => (
+          <TypeLabel key={slot} type={type.name} />
+        ))}
+      </div>
     </main>
   );
 }

@@ -1,3 +1,5 @@
+import { types } from "./types";
+
 export const getIdByUrl = (url) => {
   const parts = url.split("/");
   return parts[6];
@@ -19,4 +21,9 @@ export const getImagesFromSprites = (sprites) => {
 
   if (arr.length > 4) return arr.slice(0, 4);
   return arr;
+};
+
+export const getTypeColor = (color) => {
+  if (color in types) return types[color];
+  return types["unknown"];
 };
