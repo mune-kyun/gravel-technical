@@ -4,7 +4,7 @@ export default function StatusContainer({ children, bgColor = "#7dca5c" }) {
       style={{
         backgroundColor: bgColor,
       }}
-      className="p-4 rounded-xl flex flex-col gap-3 h-fit"
+      className="p-4 rounded-xl flex flex-col gap-3 h-fit w-full md:w-auto"
     >
       {children}
     </div>

@@ -10,12 +10,15 @@ import Status from "@/components/Status";
 import StatusContainer from "@/components/StatusContainer";
 import InfoContainer from "@/components/InfoContainer";
 
+const MOVE_LIMIT_BASE = 12;
+
 export default function PokemonDetail() {
   const router = useRouter();
   const { name } = router.query;
 
   const [data, setData] = useState(null);
   const [images, setImages] = useState(null);
+  const [moveLimit, setMoveLimit] = useState(MOVE_LIMIT_BASE);
 
   const fetchDetail = async (name) => {
     const res = await getPokemonDetail(name);
@@ -32,6 +35,11 @@ export default function PokemonDetail() {
     const foundImages = getImagesFromSprites(data.sprites);
     setImages(foundImages);
   }, [data]);
+
+  const handleMoveLimit = (mode = "inc") => {
+    if (mode === "reset") setMoveLimit(MOVE_LIMIT_BASE);
+    else setMoveLimit((val) => val + 12);
+  };
 
   return (
     <main
@@ -55,36 +63,63 @@ export default function PokemonDetail() {
           <TypeLabel key={slot} type={type.name} />
         ))}
       </div>
-      <div className="flex flex-col gap-2 md:flex-row">
+      <div className="flex flex-col gap-2 mt-4 md:flex-row w-3/5 md:w-auto">
         <StatusContainer>
-          <Status valKey={"Weight"} value={[data?.weight]} />
-          <Status valKey={"Height"} value={[data?.height]} />
+          <Status valKey={"Weight"} value={[data?.weight + " lbs"]} />
+          <Status valKey={"Height"} value={[data?.height + " inches"]} />
         </StatusContainer>
         <StatusContainer>
           {data?.stats.map(({ name, base }, idx) => (
             <Status key={idx + name} valKey={name} value={[base]} />
           ))}
         </StatusContainer>
+        <InfoContainer bgColor="#b4ca5c" wMD={true} wFull={true}>
+          <div className="text-center md:text-left">
+            <h2 className="text-[#725cca] font-bold">Abilities</h2>
+            <div className="flex flex-col items-center md:items-start gap-2 mt-2">
+              {data?.abilities.map((ability, idx) => (
+                <div
+                  key={idx + ability}
+                  className="py-1 px-2 bg-[rgba(0,0,0,0.1)] w-fit rounded-md"
+                >
+                  <p className="capitalize text-white font-semibold">
+                    {formatName(ability)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </InfoContainer>
       </div>
       <InfoContainer bgColor="#b4ca5c">
         <div>
-          <h2>Abilities</h2>
-          <div>
-            {data?.abilities.map((ability, idx) => (
-              <p key={idx + ability}>{ability}</p>
-            ))}
-          </div>
-        </div>
-      </InfoContainer>
-      <InfoContainer bgColor="#b4ca5c">
-        <div>
-          <h2>Moves</h2>
-          <div>
-            {data?.moves.map(({ name }, idx) => (
-              <p key={idx + name} className="capitalize">
+          <h2 className="text-[#725cca] font-bold">
+            Moves <span>{`(${data?.moves.length})`}</span>
+          </h2>
+          <ul className="flex flex-wrap gap-3 list-disc list-inside my-2 text-[#a95cca] font-medium">
+            {data?.moves.slice(0, moveLimit).map(({ name }, idx) => (
+              <li key={idx + name} className="capitalize">
                 {formatName(name)}
-              </p>
+              </li>
             ))}
+          </ul>
+          <div className="flex justify-between">
+            {data?.moves.length > moveLimit && (
+              <p
+                className="text-[#5c7dca] cursor-pointer"
+                onClick={handleMoveLimit}
+              >
+                More ...
+              </p>
+            )}
+            {moveLimit != MOVE_LIMIT_BASE && (
+              <p
+                className="text-[#ca5cb4] cursor-pointer"
+                onClick={() => handleMoveLimit("reset")}
+              >
+                Show Less
+              </p>
+            )}
           </div>
         </div>
       </InfoContainer>
