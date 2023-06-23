@@ -18,7 +18,7 @@ export default function PokemonDetail() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24`}
+      className={`flex min-h-screen flex-col items-center py-12 px-6 gap-4`}
     >
       <p>pokemon detail</p>
     </main>
