@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { getPokemon, itemPerPage } from "./api/pokemon";
 import ReactPaginate from "react-paginate";
+import Link from "next/link";
+
+import { getPokemon, itemPerPage } from "./api/pokemon";
 
 export default function Home() {
   const [offset, setOffset] = useState(0);
@@ -27,7 +29,11 @@ export default function Home() {
     >
       <p>pokemon</p>
       {pokemon.map(({ name }) => {
-        return <p key={name}>{name}</p>;
+        return (
+          <Link href={`/pokemon/${name}`} key={name}>
+            <p>{name}</p>
+          </Link>
+        );
       })}
       <ReactPaginate
         breakLabel="..."
