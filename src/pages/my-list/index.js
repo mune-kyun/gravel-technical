@@ -5,10 +5,14 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useMainContext } from "../context/mainContext";
 import { transformObjectToArray } from "@/utils";
+import { useRouter } from "next/router";
 
 const ITEM_PER_PAGE = 16;
 
 export default function MyList() {
+  const router = useRouter();
+  const { page: pageParam } = router.query;
+
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(1);
   const [pokemon, setPokemon] = useState([]);
@@ -30,6 +34,10 @@ export default function MyList() {
   }, [offset]);
 
   const handlePageClick = (event) => {
+    router.push({
+      pathname: "/my-list",
+      query: { page: event.selected + 1 },
+    });
     setOffset(event.selected);
   };
 
@@ -60,6 +68,7 @@ export default function MyList() {
         onPageChange={handlePageClick}
         containerClassName={"pagination"}
         activeClassName={"active"}
+        initialPage={pageParam ? pageParam - 1 : 0}
       />
     </main>
   );

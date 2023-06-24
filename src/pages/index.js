@@ -5,9 +5,13 @@ import { getPokemon } from "./api/pokemon";
 import Card from "@/components/Card";
 import Tabs from "@/components/Tabs";
 import AppTitle from "@/components/AppTitle";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const [offset, setOffset] = useState(0);
+  const router = useRouter();
+  const { page: pageParam } = router.query;
+
+  const [offset, setOffset] = useState(pageParam);
   const [pageCount, setPageCount] = useState(1);
   const [pokemon, setPokemon] = useState([]);
 
@@ -22,6 +26,10 @@ export default function Home() {
   }, [offset]);
 
   const handlePageClick = (event) => {
+    router.push({
+      pathname: "",
+      query: { page: event.selected + 1 },
+    });
     setOffset(event.selected);
   };
 
@@ -45,6 +53,7 @@ export default function Home() {
         onPageChange={handlePageClick}
         containerClassName={"pagination"}
         activeClassName={"active"}
+        initialPage={pageParam ? pageParam - 1 : 0}
       />
     </main>
   );
