@@ -37,6 +37,8 @@ export const transformPokemonDetailData = (data) => {
   transformedData["weight"] = data["weight"];
   transformedData["height"] = data["height"];
   transformedData["types"] = data["types"];
+  transformedData["id"] = data["id"];
+  transformedData["name"] = data["name"];
 
   transformedData["stats"] = [];
   data.stats.map((stat) => {

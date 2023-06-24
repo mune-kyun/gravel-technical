@@ -10,6 +10,7 @@ import Status from "@/components/Status";
 import StatusContainer from "@/components/StatusContainer";
 import InfoContainer from "@/components/InfoContainer";
 import Image from "next/image";
+import { useMainContext } from "../context/mainContext";
 
 const MOVE_LIMIT_BASE = 12;
 
@@ -18,16 +19,27 @@ export default function PokemonDetail() {
   const { name } = router.query;
 
   const [data, setData] = useState(null);
+  const [localData, setLocalData] = useState({ owned: 0 });
   const [images, setImages] = useState(null);
   const [moveLimit, setMoveLimit] = useState(MOVE_LIMIT_BASE);
+
+  const { mainGetPokemonByName, mainAddPokemon } = useMainContext();
 
   const fetchDetail = async (name) => {
     const res = await getPokemonDetail(name);
     setData(res);
   };
 
+  const fetchLocalDetail = (name) => {
+    const lData = mainGetPokemonByName(name);
+    if (lData) setLocalData(lData);
+  };
+
   useEffect(() => {
-    if (name) fetchDetail(name);
+    if (!name) return;
+
+    fetchDetail(name);
+    fetchLocalDetail(name);
   }, [name]);
 
   useEffect(() => {
@@ -43,7 +55,14 @@ export default function PokemonDetail() {
   };
 
   const handleCatch = () => {
-    alert(getFifty());
+    if (getFifty()) {
+      alert("catched");
+      const { id, name } = data;
+      mainAddPokemon({ id, name });
+      fetchLocalDetail(name);
+    } else {
+      alert("failed");
+    }
   };
 
   return (
@@ -68,7 +87,7 @@ export default function PokemonDetail() {
           <TypeLabel key={slot} type={type.name} />
         ))}
       </div>
-      <div className="flex flex-col gap-2 mt-4 md:flex-row w-3/5 md:w-auto">
+      <div className="flex flex-col gap-2 mt-3 md:flex-row w-3/5 md:w-auto">
         <StatusContainer>
           <Status valKey={"Weight"} value={[data?.weight + " lbs"]} />
           <Status valKey={"Height"} value={[data?.height + " inches"]} />
@@ -128,7 +147,8 @@ export default function PokemonDetail() {
           </div>
         </div>
       </InfoContainer>
-      <div className="group relative mt-4 mb-2 flex justify-center">
+      <h2 className="mt-1">Owned: {localData?.owned}</h2>
+      <div className="group relative mt-2 mb-2 flex justify-center">
         <button
           className="rounded bg-transparent px-4 py-2 text-sm text-white shadow-sm lg:group-hover:scale-125"
           onClick={handleCatch}
@@ -137,7 +157,7 @@ export default function PokemonDetail() {
         </button>
       </div>
       <div className="rounded bg-gray-800 p-2 text-xs text-white capitalize">
-        👆 Catch {formatName(name)}
+        Catch {formatName(name)} 👆
       </div>
     </main>
   );
