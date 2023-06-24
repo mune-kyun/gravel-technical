@@ -2,6 +2,8 @@
 
 See all pokemon with this app with a simple catch pokemon simulation.
 
+URL: https://gravel-technical-waiy.vercel.app/
+
 ## Tech Used:
 
 - Next.js
