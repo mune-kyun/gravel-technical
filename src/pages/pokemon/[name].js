@@ -83,15 +83,25 @@ export default function PokemonDetail() {
       className={`flex min-h-screen flex-col items-center pt-12 pb-14 px-6 gap-4`}
     >
       <Breadcrumb textNow={name} />
-      <Carousel showIndicators={false}>
-        {images?.map((url, idx) => {
-          return (
-            <div key={idx + url}>
-              <img src={url} width={90} height={90} alt="pokemon" />
-            </div>
-          );
-        })}
-      </Carousel>
+      {images?.length > 0 ? (
+        <Carousel showIndicators={false}>
+          {images?.map((url, idx) => {
+            return (
+              <div key={idx + url}>
+                <img src={url} width={90} height={90} alt="pokemon" />
+              </div>
+            );
+          })}
+        </Carousel>
+      ) : (
+        <Image
+          className="my-2"
+          src={"/question.png"}
+          alt={"img not found"}
+          width={70}
+          height={70}
+        />
+      )}
       <h1 className="text-2xl sm:text-4xl font-bold capitalize">
         {formatName(name)}
       </h1>

@@ -19,7 +19,9 @@ export default function Card({
 }) {
   const idPath = id ? id : url ? getIdByUrl(url) : "";
   const formattedName = formatName(name);
+
   const [isOpen, setIsOpen] = useState(false);
+  const [src, setSrc] = useState(`${imgBaseURL}${idPath}.png`);
 
   const { mainRemovePokemonByName } = useMainContext();
 
@@ -47,10 +49,11 @@ export default function Card({
     <Link href={`/pokemon/${name}`} key={name} className="hover:-translate-y-2">
       <div className="shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)] p-5 flex flex-col items-center relative">
         <Image
-          src={`${imgBaseURL}${idPath}.png`}
+          src={src}
           width={90}
           height={90}
-          alt="Pokemon"
+          alt="img"
+          onError={() => setSrc("/question.png")}
         />
         <p className="text-[#313131] text-lg text-center font-semibold capitalize">
           {formattedName}
@@ -66,7 +69,7 @@ export default function Card({
                 src={`/pokemon-release.png`}
                 width={30}
                 height={30}
-                alt="Pokemon"
+                alt="remove"
                 onClick={handleRelease}
               />
               <span class="absolute top-12 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white md:group-hover:scale-100">
