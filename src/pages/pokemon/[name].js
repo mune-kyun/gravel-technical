@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { getPokemonDetail } from "../api/pokemon";
-import { formatName, getImagesFromSprites } from "@/utils";
+import { formatName, getFifty, getImagesFromSprites } from "@/utils";
 import { Carousel } from "react-responsive-carousel";
 import Breadcrumb from "@/components/Breadcrumb";
 import TypeLabel from "@/components/TypeLabel";
 import Status from "@/components/Status";
 import StatusContainer from "@/components/StatusContainer";
 import InfoContainer from "@/components/InfoContainer";
+import Image from "next/image";
 
 const MOVE_LIMIT_BASE = 12;
 
@@ -41,9 +42,13 @@ export default function PokemonDetail() {
     else setMoveLimit((val) => val + 12);
   };
 
+  const handleCatch = () => {
+    alert(getFifty());
+  };
+
   return (
     <main
-      className={`flex min-h-screen flex-col items-center py-12 px-6 gap-4`}
+      className={`flex min-h-screen flex-col items-center pt-12 pb-14 px-6 gap-4`}
     >
       <Breadcrumb textNow={name} />
       <Carousel showIndicators={false}>
@@ -123,6 +128,17 @@ export default function PokemonDetail() {
           </div>
         </div>
       </InfoContainer>
+      <div class="group relative mt-4 mb-2 flex justify-center">
+        <button
+          class="rounded bg-transparent px-4 py-2 text-sm text-white shadow-sm lg:group-hover:scale-125"
+          onClick={handleCatch}
+        >
+          <Image src={`/pokeball.svg`} width={90} height={90} alt="Catch" />
+        </button>
+      </div>
+      <div class="rounded bg-gray-800 p-2 text-xs text-white capitalize">
+        👆 Catch {formatName(name)}
+      </div>
     </main>
   );
 }

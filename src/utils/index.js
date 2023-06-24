@@ -63,3 +63,7 @@ export const transformPokemonDetailData = (data) => {
 
   return transformedData;
 };
+
+export const getFifty = () => {
+  return Math.random() < 0.5;
+};
