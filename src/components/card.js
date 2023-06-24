@@ -1,18 +1,47 @@
 import { formatName, getIdByUrl } from "@/utils";
 import Link from "next/link";
 import Image from "next/image";
+import Modal from "./Modal";
+import { useState } from "react";
+import ConfirmationButton from "./ConfirmationButton";
+import { useMainContext } from "@/pages/context/mainContext";
 
 const imgBaseURL =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 
-export default function Card({ name, url, id, owned, mode = "default" }) {
+export default function Card({
+  name,
+  url,
+  id,
+  owned,
+  mode = "default",
+  callbackAfterRemove = () => {},
+}) {
   const idPath = id ? id : url ? getIdByUrl(url) : "";
   const formattedName = formatName(name);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { mainRemovePokemonByName } = useMainContext();
 
   const handleRelease = (e) => {
     e.preventDefault();
-    alert("test");
+
+    openModal();
   };
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function handleRemove() {
+    mainRemovePokemonByName(name);
+    closeModal();
+    callbackAfterRemove();
+  }
 
   return (
     <Link href={`/pokemon/${name}`} key={name} className="hover:-translate-y-2">
@@ -47,6 +76,29 @@ export default function Card({ name, url, id, owned, mode = "default" }) {
           </div>
         )}
       </div>
+      <Modal isOpen={isOpen} closeModal={closeModal}>
+        <div className="flex flex-col items-center gap-4">
+          <h2 className={`text-center font-semibold text-xl text-[#d0342c]`}>
+            You sure you want to release{" "}
+            <span className="text-black font-bold capitalize">
+              {formattedName}
+            </span>{" "}
+            ?
+          </h2>
+          <div className="flex gap-3">
+            <ConfirmationButton
+              mode={"green"}
+              text={"YES 😐"}
+              handleClick={handleRemove}
+            />
+            <ConfirmationButton
+              mode={"red"}
+              text={"NO 😢"}
+              handleClick={closeModal}
+            />
+          </div>
+        </div>
+      </Modal>
     </Link>
   );
 }

@@ -41,7 +41,14 @@ export default function MyList() {
       <Tabs currentLink={"mylist"} />
       <div className="grid grid-cols-2 gap-6 gap-x-10 sm:gap-x-20 md:grid-cols-4 mb-6 border-t-2 border-[#7dca5c] ">
         {pokemon.map(({ name, id, owned }) => (
-          <Card key={name} name={name} mode={"mylist"} id={id} owned={owned} />
+          <Card
+            key={name}
+            name={name}
+            mode={"mylist"}
+            id={id}
+            owned={owned}
+            callbackAfterRemove={fetchPokemonLocal}
+          />
         ))}
       </div>
       <ReactPaginate

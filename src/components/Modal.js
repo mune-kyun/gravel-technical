@@ -4,7 +4,12 @@ import { Fragment } from "react";
 export default function Modal({ isOpen, closeModal, children }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        onClose={closeModal}
+        onClick={(e) => e.preventDefault()}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

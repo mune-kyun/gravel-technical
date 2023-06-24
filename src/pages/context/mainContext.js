@@ -39,6 +39,16 @@ const MainProvider = ({ children }) => {
     window.localStorage.removeItem(currKey);
   };
 
+  const mainRemovePokemonByName = async (name) => {
+    const data =
+      localStorage.getItem(currKey) === null
+        ? {}
+        : JSON.parse(window.localStorage.getItem(currKey));
+
+    delete data[name];
+    window.localStorage.setItem(currKey, JSON.stringify(data));
+  };
+
   return (
     <MainContext.Provider
       value={{
@@ -46,6 +56,7 @@ const MainProvider = ({ children }) => {
         mainGetPokemonByName,
         mainAddPokemon,
         mainRemoveAllPokemon,
+        mainRemovePokemonByName,
       }}
     >
       {children}
