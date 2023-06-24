@@ -16,9 +16,13 @@ export default function MyList() {
   const { mainGetPokemon } = useMainContext();
 
   const fetchPokemonLocal = (offset = 0) => {
-    const data = transformObjectToArray(mainGetPokemon());
+    let data = transformObjectToArray(mainGetPokemon());
+    const pageCount = data.length / ITEM_PER_PAGE;
+
+    data = data.slice(offset * ITEM_PER_PAGE, offset + ITEM_PER_PAGE);
     setPokemon(data);
-    // setPageCount(pageCount);
+
+    setPageCount(pageCount);
   };
 
   useEffect(() => {
@@ -31,13 +35,13 @@ export default function MyList() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center py-12 px-6 gap-4`}
+      className={`flex min-h-screen flex-col items-center py-12 px-6 md:px-10 gap-4`}
     >
       <AppTitle />
       <Tabs currentLink={"mylist"} />
       <div className="grid grid-cols-2 gap-6 gap-x-10 sm:gap-x-20 md:grid-cols-4 mb-6 border-t-2 border-[#7dca5c] ">
-        {pokemon.map(({ name, id }) => (
-          <Card key={name} name={name} id={id} />
+        {pokemon.map(({ name, id, owned }) => (
+          <Card key={name} name={name} mode={"mylist"} id={id} owned={owned} />
         ))}
       </div>
       <ReactPaginate

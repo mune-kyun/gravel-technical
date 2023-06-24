@@ -147,7 +147,10 @@ export default function PokemonDetail() {
           </div>
         </div>
       </InfoContainer>
-      <h2 className="mt-1">Owned: {localData?.owned}</h2>
+      <h2 className="mt-1 text-[#7dca5c] font-bold">
+        <span className="font-semibold text-black">Owned:</span>{" "}
+        {localData?.owned}
+      </h2>
       <div className="group relative mt-2 mb-2 flex justify-center">
         <button
           className="rounded bg-transparent px-4 py-2 text-sm text-white shadow-sm lg:group-hover:scale-125"
