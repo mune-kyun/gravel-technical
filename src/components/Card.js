@@ -72,7 +72,7 @@ export default function Card({
                 alt="remove"
                 onClick={handleRelease}
               />
-              <span class="absolute top-12 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white md:group-hover:scale-100">
+              <span className="absolute top-12 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white md:group-hover:scale-100">
                 Release
               </span>
             </div>

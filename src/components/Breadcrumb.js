@@ -13,7 +13,7 @@ export default function Breadcrumb({ textNow }) {
         <li className="inline-flex items-center">
           <Link
             href="/"
-            className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600"
+            className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-[#7dca5c]"
           >
             <svg
               aria-hidden="true"
