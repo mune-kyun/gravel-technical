@@ -3,6 +3,8 @@ import ReactPaginate from "react-paginate";
 
 import { getPokemon } from "./api/pokemon";
 import Card from "@/components/Card";
+import Tabs from "@/components/Tabs";
+import AppTitle from "@/components/AppTitle";
 
 export default function Home() {
   const [offset, setOffset] = useState(0);
@@ -27,8 +29,9 @@ export default function Home() {
     <main
       className={`flex min-h-screen flex-col items-center py-12 px-6 gap-4`}
     >
-      <h1 className="text-[#7dca5c] text-2xl sm:text-4xl font-bold">Pokédex</h1>
-      <div className="grid grid-cols-2 gap-6 gap-x-10 sm:gap-x-20 md:grid-cols-4 mb-6">
+      <AppTitle />
+      <Tabs currentLink={"home"} />
+      <div className="grid grid-cols-2 gap-6 gap-x-10 sm:gap-x-20 md:grid-cols-4 mb-6 border-t-2 border-[#7dca5c] ">
         {pokemon.map(({ name, url }) => (
           <Card key={name} name={name} url={url} />
         ))}
