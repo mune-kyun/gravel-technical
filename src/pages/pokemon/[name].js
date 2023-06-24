@@ -11,6 +11,7 @@ import StatusContainer from "@/components/StatusContainer";
 import InfoContainer from "@/components/InfoContainer";
 import Image from "next/image";
 import { useMainContext } from "../context/mainContext";
+import Modal from "@/components/Modal";
 
 const MOVE_LIMIT_BASE = 12;
 
@@ -22,6 +23,8 @@ export default function PokemonDetail() {
   const [localData, setLocalData] = useState({ owned: 0 });
   const [images, setImages] = useState(null);
   const [moveLimit, setMoveLimit] = useState(MOVE_LIMIT_BASE);
+  const [isOpen, setIsOpen] = useState(false);
+  const [catchMessage, setCatchMessage] = useState("");
 
   const { mainGetPokemonByName, mainAddPokemon } = useMainContext();
 
@@ -56,14 +59,24 @@ export default function PokemonDetail() {
 
   const handleCatch = () => {
     if (getFifty()) {
-      alert("catched");
+      setCatchMessage("Pokemon Caught 😎");
       const { id, name } = data;
       mainAddPokemon({ id, name });
       fetchLocalDetail(name);
     } else {
-      alert("failed");
+      setCatchMessage("Pokemon Fleed 😰");
     }
+
+    openModal();
   };
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
     <main
@@ -147,7 +160,11 @@ export default function PokemonDetail() {
           </div>
         </div>
       </InfoContainer>
-      <h2 className="mt-1 text-[#7dca5c] font-bold">
+      <h2
+        className={`mt-1 ${
+          localData?.owned > 0 ? "text-[#7dca5c]" : "text-[#131312]"
+        } font-bold`}
+      >
         <span className="font-semibold text-black">Owned:</span>{" "}
         {localData?.owned}
       </h2>
@@ -162,6 +179,19 @@ export default function PokemonDetail() {
       <div className="rounded bg-gray-800 p-2 text-xs text-white capitalize">
         Catch {formatName(name)} 👆
       </div>
+      <Modal isOpen={isOpen} closeModal={closeModal}>
+        <div className="">
+          <h2
+            className={`text-center font-semibold text-xl ${
+              catchMessage.includes("Fleed")
+                ? "text-[#911f21]"
+                : "text-[#7dca5c]"
+            }`}
+          >
+            {catchMessage}
+          </h2>
+        </div>
+      </Modal>
     </main>
   );
 }
