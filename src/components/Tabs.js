@@ -12,8 +12,8 @@ const normalStyle = {
 
 export default function Tabs({ currentLink }) {
   return (
-    <ul class="flex flex-wrap justify-center text-sm font-medium text-center w-fit px-4">
-      <li class="mr-2">
+    <ul className="flex flex-wrap justify-center text-sm font-medium text-center w-fit px-4">
+      <li className="mr-2">
         <Link
           href="/"
           className="inline-block px-4 py-3 rounded-lg"
@@ -22,7 +22,7 @@ export default function Tabs({ currentLink }) {
           All Pokemon
         </Link>
       </li>
-      <li class="mr-2">
+      <li className="mr-2">
         <Link
           href="/my-list"
           className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100"

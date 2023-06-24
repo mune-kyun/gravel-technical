@@ -66,6 +66,12 @@ export const transformPokemonDetailData = (data) => {
   return transformedData;
 };
 
+export const transformObjectToArray = (data) => {
+  let arr = [];
+  Object.keys(data).map((key) => arr.push(data[key]));
+  return arr;
+};
+
 export const getFifty = () => {
   return Math.random() < 0.5;
 };

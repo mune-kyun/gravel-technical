@@ -5,8 +5,8 @@ import Image from "next/image";
 const imgBaseURL =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 
-export default function Card({ name, url }) {
-  const idPath = getIdByUrl(url);
+export default function Card({ name, url, id }) {
+  const idPath = id ? id : url ? getIdByUrl(url) : "";
   const formattedName = formatName(name);
 
   return (
