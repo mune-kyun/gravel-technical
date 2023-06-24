@@ -128,15 +128,15 @@ export default function PokemonDetail() {
           </div>
         </div>
       </InfoContainer>
-      <div class="group relative mt-4 mb-2 flex justify-center">
+      <div className="group relative mt-4 mb-2 flex justify-center">
         <button
-          class="rounded bg-transparent px-4 py-2 text-sm text-white shadow-sm lg:group-hover:scale-125"
+          className="rounded bg-transparent px-4 py-2 text-sm text-white shadow-sm lg:group-hover:scale-125"
           onClick={handleCatch}
         >
           <Image src={`/pokeball.svg`} width={90} height={90} alt="Catch" />
         </button>
       </div>
-      <div class="rounded bg-gray-800 p-2 text-xs text-white capitalize">
+      <div className="rounded bg-gray-800 p-2 text-xs text-white capitalize">
         👆 Catch {formatName(name)}
       </div>
     </main>
