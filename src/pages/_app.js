@@ -4,6 +4,7 @@ import "@/styles/pagination.css";
 import "@/styles/carousel.css";
 import MainProvider from "./context/mainContext";
 import { DefaultSeo } from "next-seo";
+import CustomLayout from "@/components/CustomLayout";
 
 const siteTitle = "PokéDexu";
 const siteDescription = "Catch pokemon easily to kill some time.";
@@ -31,7 +32,9 @@ export default function App({ Component, pageProps }) {
             images: [{ url: "/pokemon-main.png" }],
           }}
         />
-        <Component {...pageProps} />
+        <CustomLayout>
+          <Component {...pageProps} />
+        </CustomLayout>
       </MainProvider>
     </>
   );

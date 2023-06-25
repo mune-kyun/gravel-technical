@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center py-12 px-6 md:px-10 gap-4`}
+      className={`bg-white flex min-h-screen flex-col items-center py-12 px-6 md:px-10 gap-4`}
     >
       <AppTitle />
       <Tabs currentLink={"home"} />

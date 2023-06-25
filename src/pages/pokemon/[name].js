@@ -80,7 +80,7 @@ export default function PokemonDetail() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center pt-12 pb-14 px-6 gap-4`}
+      className={`bg-white flex min-h-screen flex-col items-center pt-12 pb-14 px-6 gap-4`}
     >
       <Breadcrumb textNow={name} />
       {images?.length > 0 ? (
